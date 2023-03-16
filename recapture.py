@@ -18,6 +18,8 @@ from datetime import date, datetime
 date_format = "%Y-%m-%d"
 time_format = "%H:%M"
 
+MAX_TRAP_NUMBER = 40
+
 ###############################
 provinces_list = [
     "Galapagos",
@@ -105,9 +107,7 @@ trap_methods_list = ["BG-SENTINEL"]
 #     )
 #     return trap
 
-
 # trap = get_trap_by_code("BG-1")
-
 # print(trap.trap_code)
 
 
@@ -133,7 +133,7 @@ class WindowUi(qtw.QMainWindow, Ui_DataWindow):
 
         for each in trap_methods_list:
             self.comboBox_method.addItem(each)
-        for i in range(1, 41):
+        for i in range(1, MAX_TRAP_NUMBER + 1):
             self.comboBox_code.addItem(f"BG-{i}")
 
         self.pushButton.clicked.connect(self.input_data)
@@ -221,7 +221,10 @@ class WindowUi(qtw.QMainWindow, Ui_DataWindow):
                 and self.sex == "hembra"
             ):
                 self.taenorhincus_nomarked_female = int(self.quantity)
-            print(self.AEG_yellow_male)
+            # print(self.AEG_yellow_male)
+            self.textEdit_summary.setPlainText(
+                f"AEG rosados macho: {self.AEG_pink_male}\nAEG rosados hembra: {self.AEG_pink_female}\nAEG amarillos macho: {self.AEG_yellow_male}\nAEG amarillos hembra: {self.AEG_yellow_female}\nAEG sin color macho: {self.AEG_nomarked_male}\nAEG sin color hembra: {self.AEG_nomarked_female}\nCUX sin color macho: {self.CUX_nomarked_male}\nCUX sin color hembra: {self.CUX_nomarked_female}\nTaenorhincus sin color macho: {self.taenorhincus_nomarked_male}\nTaenorhincus sin color hembra: {self.taenorhincus_nomarked_female}\n"
+            )
 
         except ValueError:
             qtw.QMessageBox.information(
@@ -310,6 +313,16 @@ class WindowUi(qtw.QMainWindow, Ui_DataWindow):
         try:
             if self.lineEdit_collection.text() == "":
                 self.collection_date = None
+                self.AEG_pink_male = None
+                self.AEG_pink_female = None
+                self.AEG_yellow_male = None
+                self.AEG_yellow_female = None
+                self.AEG_nomarked_male = None
+                self.AEG_nomarked_female = None
+                self.CUX_nomarked_male = None
+                self.CUX_nomarked_female = None
+                self.taenorhincus_nomarked_male = None
+                self.taenorhincus_nomarked_female = None
             else:
                 is_date = bool(
                     datetime.strptime(self.lineEdit_collection.text(), date_format)
@@ -472,6 +485,15 @@ class WindowUi(qtw.QMainWindow, Ui_DataWindow):
         )
 
         conn.commit()
+        if c.rowcount < 1:
+            print(c.rowcount)
+            qtw.QMessageBox.information(
+                self, "Error", f"Error en modificar fila {self.trap_code}"
+            )
+        else:
+            qtw.QMessageBox.information(
+                self, "Exito", f"Fila {self.trap_code} modificada"
+            )
         conn.close()
 
 
