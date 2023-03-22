@@ -1,7 +1,9 @@
 import sqlite3
-from trap import Trap
+from classes import Trap, User
 import pandas as pd
 import matplotlib.pyplot as plt
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 from recaptura_code import Ui_DataWindow
 from calculos_code import Ui_GraphsWindow
@@ -165,6 +167,7 @@ class WindowUi(qtw.QMainWindow, Ui_DataWindow):
                 self.quantity = None
                 return
             self.quantity = self.lineEdit_quantity.text()
+
             if self.species == "AEG" and self.color == "rosado" and self.sex == "macho":
                 self.AEG_pink_male = int(self.quantity)
             if (

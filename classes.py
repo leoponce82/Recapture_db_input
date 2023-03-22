@@ -56,3 +56,10 @@ class Trap:
         self.taenorhincus_nomarked_male = taenorhincus_nomarked_male
         self.taenorhincus_nomarked_female = taenorhincus_nomarked_female
         self.OBS = OBS
+
+
+class User:
+    def __init__(self, first, last, email):
+        self.first_name = first
+        self.last_name = last
+        self.email = email
