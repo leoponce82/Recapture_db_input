@@ -13,6 +13,7 @@ c.execute(
         )"""
 )
 
+c.execute(" INSERT INTO users VALUES ('admin','admin',)")
 
 conn.commit()
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'recaptura.ui'
+# Form implementation generated from reading ui file 'recapture_input.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.8
 #
@@ -14,24 +14,84 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_DataWindow(object):
     def setupUi(self, DataWindow):
         DataWindow.setObjectName("DataWindow")
-        DataWindow.resize(685, 538)
+        DataWindow.resize(685, 613)
+        DataWindow.setStyleSheet("QWidget {\n"
+"  background-color: #fff;\n"
+"}\n"
+"QLabel {\n"
+"  color: #464d55;\n"
+"  font-weight: 600;\n"
+"}\n"
+"QLabel#heading {\n"
+"  color: #0f1925;\n"
+"  font-size: 18px;\n"
+"  margin-bottom: 10px;\n"
+"}\n"
+"\n"
+"QLabel#subheading {\n"
+"  color: #0f1925;\n"
+"  font-size: 12px;\n"
+"  font-weight: normal;\n"
+"  margin-bottom: 10px;\n"
+"}\n"
+"QLineEdit {\n"
+"  border-radius: 8px;\n"
+"  border: 1px solid #e0e4e7;\n"
+"  padding: 5px 15px;\n"
+"}\n"
+"\n"
+"QLineEdit:focus {\n"
+"  border: 1px solid #d0e3ff;\n"
+"}\n"
+"\n"
+"QLineEdit::placeholder {\n"
+"  color: #767e89;\n"
+"}\n"
+"QPushButton {\n"
+"  background-color: #0d6efd;\n"
+"  color: #fff;\n"
+"  font-weight: 600;\n"
+"  border-radius: 8px;\n"
+"  border: 1px solid #0d6efd;\n"
+"  padding: 10px 10px;\n"
+"  margin-top: 10px;\n"
+"  outline: 0px;\n"
+"}\n"
+"QPushButton:hover,\n"
+"QPushButton:focus {\n"
+"  background-color: #0b5ed7;\n"
+"  border: 1px solid #9ac3fe;\n"
+"}\n"
+"QMenu {\n"
+"background-color: #fff;\n"
+"border: 1px solid black;\n"
+"margin: 2px;\n"
+"}\n"
+"QMenu::item {\n"
+"background-color: transparent;\n"
+"}\n"
+"QMenu::item:selected {\n"
+"background-color: #0b5ed7;\n"
+"color: rgb(255,255,255);\n"
+"}\n"
+"")
         self.centralwidget = QtWidgets.QWidget(DataWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(520, 450, 121, 41))
+        self.pushButton.setGeometry(QtCore.QRect(520, 520, 121, 41))
         self.pushButton.setObjectName("pushButton")
         self.label_21 = QtWidgets.QLabel(self.centralwidget)
         self.label_21.setGeometry(QtCore.QRect(140, 20, 431, 20))
         font = QtGui.QFont()
         font.setFamily("Inter")
         font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setBold(True)
+        font.setWeight(75)
         self.label_21.setFont(font)
         self.label_21.setAlignment(QtCore.Qt.AlignCenter)
         self.label_21.setObjectName("label_21")
         self.layoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.layoutWidget.setGeometry(QtCore.QRect(30, 70, 299, 412))
+        self.layoutWidget.setGeometry(QtCore.QRect(30, 70, 299, 495))
         self.layoutWidget.setObjectName("layoutWidget")
         self.formLayout = QtWidgets.QFormLayout(self.layoutWidget)
         self.formLayout.setContentsMargins(0, 0, 0, 0)
@@ -40,8 +100,8 @@ class Ui_DataWindow(object):
         font = QtGui.QFont()
         font.setFamily("Inter")
         font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setBold(True)
+        font.setWeight(75)
         self.label.setFont(font)
         self.label.setObjectName("label")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label)
@@ -53,8 +113,8 @@ class Ui_DataWindow(object):
         font = QtGui.QFont()
         font.setFamily("Inter")
         font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setBold(True)
+        font.setWeight(75)
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_2)
@@ -65,8 +125,8 @@ class Ui_DataWindow(object):
         font = QtGui.QFont()
         font.setFamily("Inter")
         font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setBold(True)
+        font.setWeight(75)
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_3)
@@ -77,8 +137,8 @@ class Ui_DataWindow(object):
         font = QtGui.QFont()
         font.setFamily("Inter")
         font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setBold(True)
+        font.setWeight(75)
         self.label_4.setFont(font)
         self.label_4.setObjectName("label_4")
         self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.label_4)
@@ -89,8 +149,8 @@ class Ui_DataWindow(object):
         font = QtGui.QFont()
         font.setFamily("Inter")
         font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setBold(True)
+        font.setWeight(75)
         self.label_5.setFont(font)
         self.label_5.setObjectName("label_5")
         self.formLayout.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.label_5)
@@ -102,8 +162,8 @@ class Ui_DataWindow(object):
         font = QtGui.QFont()
         font.setFamily("Inter")
         font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setBold(True)
+        font.setWeight(75)
         self.label_6.setFont(font)
         self.label_6.setObjectName("label_6")
         self.formLayout.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.label_6)
@@ -115,8 +175,8 @@ class Ui_DataWindow(object):
         font = QtGui.QFont()
         font.setFamily("Inter")
         font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setBold(True)
+        font.setWeight(75)
         self.label_7.setFont(font)
         self.label_7.setObjectName("label_7")
         self.formLayout.setWidget(6, QtWidgets.QFormLayout.LabelRole, self.label_7)
@@ -128,8 +188,8 @@ class Ui_DataWindow(object):
         font = QtGui.QFont()
         font.setFamily("Inter")
         font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setBold(True)
+        font.setWeight(75)
         self.label_8.setFont(font)
         self.label_8.setObjectName("label_8")
         self.formLayout.setWidget(7, QtWidgets.QFormLayout.LabelRole, self.label_8)
@@ -140,8 +200,8 @@ class Ui_DataWindow(object):
         font = QtGui.QFont()
         font.setFamily("Inter")
         font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setBold(True)
+        font.setWeight(75)
         self.label_9.setFont(font)
         self.label_9.setObjectName("label_9")
         self.formLayout.setWidget(8, QtWidgets.QFormLayout.LabelRole, self.label_9)
@@ -152,8 +212,8 @@ class Ui_DataWindow(object):
         font = QtGui.QFont()
         font.setFamily("Inter")
         font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setBold(True)
+        font.setWeight(75)
         self.label_10.setFont(font)
         self.label_10.setObjectName("label_10")
         self.formLayout.setWidget(9, QtWidgets.QFormLayout.LabelRole, self.label_10)
@@ -165,8 +225,8 @@ class Ui_DataWindow(object):
         font = QtGui.QFont()
         font.setFamily("Inter")
         font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setBold(True)
+        font.setWeight(75)
         self.label_11.setFont(font)
         self.label_11.setObjectName("label_11")
         self.formLayout.setWidget(10, QtWidgets.QFormLayout.LabelRole, self.label_11)
@@ -178,8 +238,8 @@ class Ui_DataWindow(object):
         font = QtGui.QFont()
         font.setFamily("Inter")
         font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setBold(True)
+        font.setWeight(75)
         self.label_12.setFont(font)
         self.label_12.setObjectName("label_12")
         self.formLayout.setWidget(11, QtWidgets.QFormLayout.LabelRole, self.label_12)
@@ -191,8 +251,8 @@ class Ui_DataWindow(object):
         font = QtGui.QFont()
         font.setFamily("Inter")
         font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setBold(True)
+        font.setWeight(75)
         self.label_13.setFont(font)
         self.label_13.setObjectName("label_13")
         self.formLayout.setWidget(12, QtWidgets.QFormLayout.LabelRole, self.label_13)
@@ -204,8 +264,8 @@ class Ui_DataWindow(object):
         font = QtGui.QFont()
         font.setFamily("Inter")
         font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setBold(True)
+        font.setWeight(75)
         self.label_14.setFont(font)
         self.label_14.setObjectName("label_14")
         self.formLayout.setWidget(13, QtWidgets.QFormLayout.LabelRole, self.label_14)
@@ -217,8 +277,8 @@ class Ui_DataWindow(object):
         font = QtGui.QFont()
         font.setFamily("Inter")
         font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setBold(True)
+        font.setWeight(75)
         self.label_15.setFont(font)
         self.label_15.setObjectName("label_15")
         self.formLayout.setWidget(14, QtWidgets.QFormLayout.LabelRole, self.label_15)
@@ -229,8 +289,8 @@ class Ui_DataWindow(object):
         font = QtGui.QFont()
         font.setFamily("Inter")
         font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setBold(True)
+        font.setWeight(75)
         self.label_16.setFont(font)
         self.label_16.setObjectName("label_16")
         self.formLayout.setWidget(15, QtWidgets.QFormLayout.LabelRole, self.label_16)
@@ -247,8 +307,8 @@ class Ui_DataWindow(object):
         font = QtGui.QFont()
         font.setFamily("Inter")
         font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setBold(True)
+        font.setWeight(75)
         self.label_17.setFont(font)
         self.label_17.setObjectName("label_17")
         self.formLayout_2.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_17)
@@ -259,8 +319,8 @@ class Ui_DataWindow(object):
         font = QtGui.QFont()
         font.setFamily("Inter")
         font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setBold(True)
+        font.setWeight(75)
         self.label_18.setFont(font)
         self.label_18.setObjectName("label_18")
         self.formLayout_2.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_18)
@@ -274,8 +334,8 @@ class Ui_DataWindow(object):
         font = QtGui.QFont()
         font.setFamily("Inter")
         font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setBold(True)
+        font.setWeight(75)
         self.label_19.setFont(font)
         self.label_19.setObjectName("label_19")
         self.formLayout_2.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_19)
@@ -288,8 +348,8 @@ class Ui_DataWindow(object):
         font = QtGui.QFont()
         font.setFamily("Inter")
         font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setBold(True)
+        font.setWeight(75)
         self.label_22.setFont(font)
         self.label_22.setObjectName("label_22")
         self.formLayout_2.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.label_22)
@@ -304,8 +364,8 @@ class Ui_DataWindow(object):
         font = QtGui.QFont()
         font.setFamily("Inter")
         font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setBold(True)
+        font.setWeight(75)
         self.label_20.setFont(font)
         self.label_20.setObjectName("label_20")
         self.formLayout_2.setWidget(5, QtWidgets.QFormLayout.LabelRole, self.label_20)
@@ -314,16 +374,16 @@ class Ui_DataWindow(object):
         self.formLayout_2.setWidget(5, QtWidgets.QFormLayout.FieldRole, self.textEdit)
         self.textEdit_summary = QtWidgets.QTextEdit(self.centralwidget)
         self.textEdit_summary.setEnabled(True)
-        self.textEdit_summary.setGeometry(QtCore.QRect(360, 360, 291, 81))
+        self.textEdit_summary.setGeometry(QtCore.QRect(360, 380, 291, 81))
         self.textEdit_summary.setReadOnly(True)
         self.textEdit_summary.setObjectName("textEdit_summary")
         self.label_23 = QtWidgets.QLabel(self.centralwidget)
-        self.label_23.setGeometry(QtCore.QRect(360, 330, 161, 33))
+        self.label_23.setGeometry(QtCore.QRect(360, 340, 161, 33))
         font = QtGui.QFont()
         font.setFamily("Inter")
         font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
+        font.setBold(True)
+        font.setWeight(75)
         self.label_23.setFont(font)
         self.label_23.setObjectName("label_23")
         DataWindow.setCentralWidget(self.centralwidget)

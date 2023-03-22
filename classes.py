@@ -59,7 +59,8 @@ class Trap:
 
 
 class User:
-    def __init__(self, first, last, email):
+    def __init__(self, first, last, email, password):
         self.first_name = first
         self.last_name = last
         self.email = email
+        self.password = password

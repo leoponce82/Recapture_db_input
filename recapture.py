@@ -5,8 +5,12 @@ import matplotlib.pyplot as plt
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-from recaptura_code import Ui_DataWindow
-from calculos_code import Ui_GraphsWindow
+from recapture_input_code import Ui_DataWindow
+from data_visualization_code import Ui_GraphsWindow
+from login_code import Ui_Dialog_Login
+from new_user_code import Ui_Dialog_new_user
+from recover_password_code import Ui_Dialog_recover_password
+
 from PyQt5 import QtWidgets as qtw
 from PyQt5 import QtCore as qtc
 from PyQt5 import QtGui as qtg
@@ -16,6 +20,9 @@ from PyQt5.QtWidgets import QLabel
 
 import sys
 from datetime import date, datetime
+
+ADMIN_USER = "admin"
+ADMIN_PASSWORD = "admin"
 
 date_format = "%Y-%m-%d"
 time_format = "%H:%M"
@@ -118,7 +125,7 @@ class WindowUi(qtw.QMainWindow, Ui_DataWindow):
         super(WindowUi, self).__init__(*args, **kwargs)
         self.setupUi(self)
 
-        # self.setWindowIcon(qtg.QIcon("logo256png.png"))
+        self.setWindowIcon(qtg.QIcon("logo256png.png"))
         # screen = qta.screens()[0]
         # dpiScaling = screen.logicalDotsPerInch()
         # self.scalingLabel = QLabel("DPI scaling: " + str(dpiScaling))
@@ -504,7 +511,7 @@ class GraphsWindow(qtw.QMainWindow, Ui_GraphsWindow):
     def __init__(self, *args, **kwargs):
         super(GraphsWindow, self).__init__(*args, **kwargs)
         self.setupUi(self)
-
+        self.setWindowIcon(qtg.QIcon("logo256png.png"))
         self.pushButton_get_graphs.clicked.connect(self.calculate_graphs)
 
     def calculate_graphs(self):
@@ -613,10 +620,204 @@ class GraphsWindow(qtw.QMainWindow, Ui_GraphsWindow):
         plt.show()
 
 
+
+class DialogLogin(qtw.QDialog, Ui_Dialog_Login):
+    send_username = qtc.pyqtSignal(str)
+
+    def __init__(self, *args, **kwargs):
+        super(DialogLogin, self).__init__(*args, **kwargs)
+        self.setupUi(self)
+
+        self.setWindowIcon(qtg.QIcon("logo256png.png"))
+
+        self.pushButton_Login.clicked.connect(self.login)
+        self.pushButton_cancel_login.clicked.connect(self.close_popup)
+        self.toolButton_new_user.clicked.connect(self.new_user)
+        self.toolButton_recover_password.clicked.connect(self.recover)
+
+    def login(self):
+
+        self.user = self.lineEdit_username.text()
+        self.password = self.lineEdit_password.text()
+
+        users_json = read_json("users.json")
+        if self.user == ADMIN_USER:
+            if self.password == ADMIN_PASSWORD:
+                self.send_username.emit(str(self.user))
+                windowUi.show()
+                dialogLogin.close()
+                return
+            else:
+                qtw.QMessageBox.information(self, "Error", "Contraseña incorrecta")
+                return
+        if not (self.user in users_json):
+            qtw.QMessageBox.information(
+                self, "Error", f"No existe el usuario {self.user}"
+            )
+            return
+
+        real_password = users_json[self.user]
+        chars_password = str(real_password)[2:]
+        values_password = str(real_password)[:2]
+        decoded_password = caesar_cipher(str(chars_password), 90 - int(values_password))
+
+        if self.user in users_json:
+            if self.password == decoded_password:
+                self.send_username.emit(str(self.user))
+                windowUi.show()
+                dialogLogin.close()
+            else:
+                qtw.QMessageBox.information(self, "Error", "Contraseña incorrecta")
+                self.lineEdit_username.setText(str(self.user))
+                return
+        else:
+            if (
+                self.user == ADMIN_USER
+            ) and self.lineEdit_password.text() == ADMIN_PASSWORD:
+                self.send_username.emit(str(self.user))
+                windowUi.show()
+                dialogLogin.close()
+            else:
+                qtw.QMessageBox.information(self, "Error", "El usuario no existe")
+                return
+
+    def new_user(self):
+        dialogNewUser.show()
+
+    def recover(self):
+        dialogRecover.show()
+
+    def close_popup(self):
+        dialogLogin.close()
+        
+class DialogNewUser(qtw.QDialog, Ui_Dialog_new_user):
+    def __init__(self, *args, **kwargs):
+        super(DialogNewUser, self).__init__(*args, **kwargs)
+        self.setupUi(self)
+
+        self.setWindowIcon(qtg.QIcon("logo256png.png"))
+
+        self.pushButton_Ok_newuser.clicked.connect(self.new_user)
+        self.pushButton_cancel_newuser.clicked.connect(self.close_popup)
+
+    def close_popup(self):
+        dialogNewUser.close()
+
+    def new_user(self):
+        new_username = self.lineEdit_new_username.text()
+        new_password = self.lineEdit_new_password.text()
+        new_password_2 = self.lineEdit_new_password_2.text()
+        new_email = self.lineEdit_new_email.text()
+        new_email_2 = self.lineEdit_new_email_2.text()
+
+        if not ("@" in new_email) or not (".com" in new_email):
+            qtw.QMessageBox.information(self, "Error", "Correo no válido")
+            return
+
+        if new_password != new_password_2:
+            qtw.QMessageBox.information(self, "Error", "La contraseña no coincide")
+            return
+        if new_email != new_email_2:
+            qtw.QMessageBox.information(self, "Error", "El correo no coincide")
+            return
+        if new_username == ADMIN_USER:
+            qtw.QMessageBox.information(
+                self, "Error", f"{ADMIN_USER} no se puede crear ni modificar"
+            )
+            return
+        if new_username in USERS:
+            qtw.QMessageBox.information(self, "Error", f"{new_username} ya existe")
+            return
+        random_num = random.randint(10, 25)
+        password_to_save = caesar_cipher(str(new_password), random_num)
+        password_complete = str(random_num) + str(password_to_save)
+
+        random_num = random.randint(10, 25)
+        email_to_save = caesar_cipher(str(new_email), random_num)
+        email_complete = str(random_num) + str(email_to_save)
+
+        USERS[new_username] = password_complete
+        USERS[new_username + "-email"] = email_complete
+        save_json("users.json", USERS)
+        # with open("users.json", "w") as write_file:
+        #     json.dump(USERS, write_file, indent=4)
+        qtw.QMessageBox.information(self, "Exito", "El usuario se ha guardado")
+        dialogRecover.__init__()
+        dialogNewUser.close()
+
+
+class DialogRecoverPassword(qtw.QDialog, Ui_Dialog_recover_password):
+    def __init__(self, *args, **kwargs):
+        super(DialogRecoverPassword, self).__init__(*args, **kwargs)
+        self.setupUi(self)
+
+        self.setWindowIcon(qtg.QIcon("logo256png.png"))
+
+        self.pushButton_Ok_recover.clicked.connect(self.recover)
+        self.pushButton_cancel_recover.clicked.connect(self.close_popup)
+        self.users_json = read_json("users.json")
+        for each in self.users_json:
+            if "email" in each:
+                pass
+            else:
+                self.comboBox_recover_users.addItem(each)
+
+        self.comboBox_recover_users.activated[str].connect(self.show_email)
+
+    def show_email(self):
+        selected_user = self.comboBox_recover_users.currentText()
+        user_email = self.users_json[str(selected_user) + "-email"]
+        chars_email = str(user_email)[2:]
+        values_email = str(user_email)[:2]
+        decoded_email = caesar_cipher(str(chars_email), 90 - int(values_email))
+        self.lineEdit_recover_email.setText(str(decoded_email))
+        self.final_decoded_email = decoded_email
+
+    def close_popup(self):
+        dialogRecover.close()
+
+    def recover(self):
+        username = self.comboBox_recover_users.currentText()
+        real_password = self.users_json[username]
+        chars_password = str(real_password)[2:]
+        values_password = str(real_password)[:2]
+        decoded_password = caesar_cipher(str(chars_password), 90 - int(values_password))
+
+        if username == ADMIN_USER:
+            qtw.QMessageBox.information(
+                self, "Error", f"{ADMIN_USER} no se puede crear ni modificar"
+            )
+            return
+
+        # Define email sender and receiver
+        email_sender = "cirev.software.sit@gmail.com"
+        email_password = EMAIL_PASSWORD
+        email_receiver = str(self.final_decoded_email)
+        # Set the subject and body of the email
+        subject = "Recuperacion de contraseña Sistema SIT"
+        body = f"Su contraseña es: {decoded_password}"
+        em = EmailMessage()
+        em["From"] = email_sender
+        em["To"] = email_receiver
+        em["Subject"] = subject
+        em.set_content(body)
+        # Add SSL (layer of security)
+        context = ssl.create_default_context()
+        # Log in and send the email
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as smtp:
+            smtp.login(email_sender, email_password)
+            smtp.sendmail(email_sender, email_receiver, em.as_string())
+        qtw.QMessageBox.information(self, "Exito", "Se ha enviado la contraseña")
+        dialogRecover.close()
+
+
 if __name__ == "__main__":
     import sys
 
     app = qtw.QApplication(sys.argv)
+    dialogLogin = DialogLogin()
+    dialogNewUser = DialogNewUser()
+    dialogRecover = DialogRecoverPassword()
     windowUi = WindowUi()
     graphsWindow = GraphsWindow()
     windowUi.show()
