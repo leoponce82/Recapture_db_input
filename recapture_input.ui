@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>685</width>
-    <height>613</height>
+    <height>666</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -627,6 +627,48 @@ color: rgb(255,255,255);
     </property>
     <property name="text">
      <string>Valores guardados:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_24">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>590</y>
+      <width>71</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Inter</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Usuario:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_user">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>590</y>
+      <width>221</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Inter</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>

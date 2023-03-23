@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_DataWindow(object):
     def setupUi(self, DataWindow):
         DataWindow.setObjectName("DataWindow")
-        DataWindow.resize(685, 613)
+        DataWindow.resize(685, 666)
         DataWindow.setStyleSheet("QWidget {\n"
 "  background-color: #fff;\n"
 "}\n"
@@ -386,6 +386,25 @@ class Ui_DataWindow(object):
         font.setWeight(75)
         self.label_23.setFont(font)
         self.label_23.setObjectName("label_23")
+        self.label_24 = QtWidgets.QLabel(self.centralwidget)
+        self.label_24.setGeometry(QtCore.QRect(30, 590, 71, 28))
+        font = QtGui.QFont()
+        font.setFamily("Inter")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_24.setFont(font)
+        self.label_24.setObjectName("label_24")
+        self.label_user = QtWidgets.QLabel(self.centralwidget)
+        self.label_user.setGeometry(QtCore.QRect(110, 590, 221, 28))
+        font = QtGui.QFont()
+        font.setFamily("Inter")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_user.setFont(font)
+        self.label_user.setText("")
+        self.label_user.setObjectName("label_user")
         DataWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(DataWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 685, 21))
@@ -432,6 +451,7 @@ class Ui_DataWindow(object):
         self.pushButton_save_quantity.setText(_translate("DataWindow", "Guardar"))
         self.label_20.setText(_translate("DataWindow", "Observaciones:"))
         self.label_23.setText(_translate("DataWindow", "Valores guardados:"))
+        self.label_24.setText(_translate("DataWindow", "Usuario:"))
 
 
 if __name__ == "__main__":
