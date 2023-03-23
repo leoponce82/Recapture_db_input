@@ -20,6 +20,7 @@ from PyQt5 import QtCore as qtc
 from PyQt5 import QtGui as qtg
 from PyQt5.QtWidgets import QApplication as qta
 from PyQt5.QtWidgets import QLabel
+from PyQt5.QtCore import Qt
 
 
 import sys
@@ -123,9 +124,10 @@ trap_methods_list = ["BG-SENTINEL"]
 # trap = get_trap_by_code("BG-1")
 # print(trap.trap_code)
 
+
 def connected():
     try:
-        urllib.request.urlopen('http://google.com') #Python 3.x
+        urllib.request.urlopen("http://google.com")  # Python 3.x
         return True
     except:
         return False
@@ -592,7 +594,7 @@ class GraphsWindow(qtw.QMainWindow, Ui_GraphsWindow):
         df["release_date"] = pd.to_datetime(df.release_date)
         df["collection_date"] = pd.to_datetime(df.collection_date)
         df["trap_installation_date"] = pd.to_datetime(df.trap_installation_date)
-        print(df.to_string())
+        # print(df.to_string())
         df["marked_released"] = df.groupby("color")["color"].transform(color_case)
 
         df["recapture_rate"] = df.groupby("trap_code")["marked_released"].transform(
@@ -606,8 +608,8 @@ class GraphsWindow(qtw.QMainWindow, Ui_GraphsWindow):
         df_yellow = df_nofemale.loc[df_nofemale["color"] == "yellow"]
         recap_rate_pink = df_pink["total_collected"].sum() / 14000 * 100
         recap_rate_yellow = df_yellow["total_collected"].sum() / 44000 * 100
-        print(recap_rate_pink)
-        print(recap_rate_yellow)
+        # print(recap_rate_pink)
+        # print(recap_rate_yellow)
 
         df_nomarked = df.loc[df["color"] == "nomarked"]
         df_nomarked_AEG = df_nomarked.loc[df["species"] == "AEG"]
@@ -626,15 +628,25 @@ class GraphsWindow(qtw.QMainWindow, Ui_GraphsWindow):
 
         b_plot = new_df_box.boxplot(column=["female", "male"])
         b_plot.plot()
+        plt.savefig("boxplot.png", bbox_inches="tight")
+
         axes1 = df_nofemale.loc[df["color"] == "pink"].plot.bar(
             x="trap_code",
             y="recapture_rate",
         )
+        plt.savefig("pink.jpeg", bbox_inches="tight")
+
         axes2 = df_nofemale.loc[df["color"] == "yellow"].plot.bar(
             x="trap_code",
             y="recapture_rate",
         )
-        plt.show()
+        plt.savefig("yellow.png", bbox_inches="tight")
+
+        self.label_image.setPixmap(
+            qtg.QPixmap("pink.jpeg").scaled(500, 400, Qt.KeepAspectRatio) # type: ignore
+        )
+
+        # plt.show()
 
 
 class DialogLogin(qtw.QDialog, Ui_Dialog_Login):
@@ -784,7 +796,7 @@ class DialogNewUser(qtw.QDialog, Ui_Dialog_new_user):
 
 #         self.pushButton_Ok_recover.clicked.connect(self.recover)
 #         self.pushButton_cancel_recover.clicked.connect(self.close_popup)
-        
+
 #         self.users_json = read_json("users.json")
 #         for each in self.users_json:
 #             if "email" in each:
@@ -807,10 +819,10 @@ class DialogNewUser(qtw.QDialog, Ui_Dialog_new_user):
 #         dialogRecover.close()
 
 #     def recover(self):
-        
+
 #         if connected() is True:
-            
-        
+
+
 #         username = self.comboBox_recover_users.currentText()
 #         real_password = self.users_json[username]
 #         chars_password = str(real_password)[2:]
